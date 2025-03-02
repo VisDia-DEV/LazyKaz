@@ -31,5 +31,10 @@
         <h2>Улучшения</h2>
         <button onclick="buyUpgrade()">Купить улучшение (+2 монеты за клик)</button>
     </div>
+
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('selectstart', event => event.preventDefault());
+    </script>
 </body>
 </html>
