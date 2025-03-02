@@ -30,6 +30,7 @@ button {
     background-color: #f39c12;
     color: white;
     transition: 0.2s;
+    position: relative;
 }
 
 button:hover {
@@ -40,11 +41,24 @@ button:hover {
     display: none;
 }
 
-.particles {
-    position: absolute;
-    width: 100%;
+.progress-container {
+    width: 80%;
+    background: #333;
+    height: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
     height: 100%;
-    pointer-events: none;
+    background: #f39c12;
+    transition: width 0.5s;
+}
+
+.level-text {
+    margin-top: 10px;
 }
 
 .particle {
@@ -52,6 +66,7 @@ button:hover {
     font-size: 20px;
     color: gold;
     animation: rise 1s linear;
+    pointer-events: none;
 }
 
 @keyframes rise {
@@ -74,4 +89,35 @@ button:hover {
     padding: 15px;
     margin: 5px;
     border-radius: 10px;
+}
+#checkinTab {
+    text-align: center;
+    padding: 20px;
+}
+
+#bonusCards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.bonus-card {
+    background: #333;
+    padding: 15px;
+    border-radius: 10px;
+    width: 120px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.bonus-card:hover {
+    transform: scale(1.05);
+}
+
+#timer {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #f39c12;
 }

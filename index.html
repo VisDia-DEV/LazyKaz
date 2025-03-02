@@ -12,7 +12,12 @@
         <h1>Clicker Game</h1>
         <div class="balance">Баланс: <span id="balance">0</span> монет</div>
         <button id="clickButton">Кликни!</button>
-        <div class="particles"></div>
+        <div id="particleContainer"></div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="level-text">Уровень: <span id="level">1</span></div>
     </div>
 
     <div class="tabs">
@@ -29,7 +34,7 @@
 
     <div id="upgradesTab" class="hidden">
         <h2>Улучшения</h2>
-        <button onclick="buyUpgrade()">Купить улучшение (+2 монеты за клик)</button>
+        <button id="upgradeButton">Купить улучшение (<span id="upgradeCost">1000</span> монет)</button>
     </div>
 
     <script>
