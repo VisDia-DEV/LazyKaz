@@ -2,36 +2,34 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Clicker Game</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <div id="clicker-page" class="page">
-        <h1>💰 Clicker Game</h1>
-        <p>Баланс: <span id="balance">0</span> монет</p>
-        <button id="clicker">💥 Клик!</button>
+    <div class="container">
+        <h1>Clicker Game</h1>
+        <div class="balance">Баланс: <span id="balance">0</span> монет</div>
+        <button id="clickButton">Кликни!</button>
+        <div class="particles"></div>
     </div>
 
-    <div id="checkin-page" class="page">
-        <h2>🎁 Ежедневный бонус</h2>
-        <p>Сегодня ты можешь получить: <span id="dailyBonus">1000</span> монет</p>
-        <button id="claimBonus">Забрать</button>
+    <div class="tabs">
+        <button onclick="showTab('clicker')">Главная</button>
+        <button onclick="showTab('checkin')">Check-in</button>
+        <button onclick="showTab('upgrades')">Улучшения</button>
     </div>
 
-    <div id="shop-page" class="page">
-        <h2>🛒 Магазин улучшений</h2>
-        <p>Текущий бонус за клик: <span id="clickValue">10</span> монет</p>
-        <button id="upgradeClick">🔼 Улучшить за 500 монет</button>
+    <div id="checkinTab" class="hidden">
+        <h2>Ежедневные бонусы</h2>
+        <div id="bonusCards"></div>
+        <div id="timer"></div>
     </div>
 
-    <div class="nav">
-        <button onclick="showPage('clicker-page')">🏠 Главная</button>
-        <button onclick="showPage('checkin-page')">🎁 Check-in</button>
-        <button onclick="showPage('shop-page')">🛒 Магазин</button>
+    <div id="upgradesTab" class="hidden">
+        <h2>Улучшения</h2>
+        <button onclick="buyUpgrade()">Купить улучшение (+2 монеты за клик)</button>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
