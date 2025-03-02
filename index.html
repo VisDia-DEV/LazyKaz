@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="clicker-page" class="page">
+        <h1>💰 Clicker Game</h1>
+        <p>Баланс: <span id="balance">0</span> монет</p>
+        <button id="clicker">💥 Клик!</button>
+    </div>
+
+    <div id="checkin-page" class="page">
+        <h2>🎁 Ежедневный бонус</h2>
+        <p>Сегодня ты можешь получить: <span id="dailyBonus">1000</span> монет</p>
+        <button id="claimBonus">Забрать</button>
+    </div>
+
+    <div id="shop-page" class="page">
+        <h2>🛒 Магазин улучшений</h2>
+        <p>Текущий бонус за клик: <span id="clickValue">10</span> монет</p>
+        <button id="upgradeClick">🔼 Улучшить за 500 монет</button>
+    </div>
+
+    <div class="nav">
+        <button onclick="showPage('clicker-page')">🏠 Главная</button>
+        <button onclick="showPage('checkin-page')">🎁 Check-in</button>
+        <button onclick="showPage('shop-page')">🛒 Магазин</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
