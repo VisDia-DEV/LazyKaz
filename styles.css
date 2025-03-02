@@ -1,68 +1,49 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #222;
-    color: white;
-    margin: 0;
-    padding-bottom: 60px;
+    user-select: none;
 }
 
-h1, h2 {
-    margin-top: 20px;
+.container {
+    margin-top: 50px;
 }
 
 button {
+    padding: 10px 20px;
     font-size: 18px;
-    padding: 12px 24px;
-    margin: 10px;
-    border: none;
     cursor: pointer;
-    background-color: #0088cc;
-    color: white;
-    border-radius: 8px;
-    transition: transform 0.1s, background-color 0.2s;
+    margin: 10px;
 }
 
-button:hover {
-    background-color: #005f99;
+.hidden {
+    display: none;
 }
 
-button:active {
-    transform: scale(0.95);
+.particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.nav {
+.particle {
+    position: absolute;
+    font-size: 20px;
+    color: gold;
+    animation: rise 1s linear;
+}
+
+@keyframes rise {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-50px); opacity: 0; }
+}
+
+.tabs {
     position: fixed;
     bottom: 0;
     width: 100%;
     display: flex;
     justify-content: space-around;
-    background-color: #333;
-    padding: 12px 0;
-}
-
-.nav button {
-    background: none;
-    color: white;
-    font-size: 16px;
-}
-
-.page {
-    display: none;
-    margin-top: 50px;
-}
-
-.show {
-    display: block;
-}
-
-/* Анимация клика */
-@keyframes pop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-.click-effect {
-    animation: pop 0.2s ease;
+    background: #ccc;
+    padding: 10px;
 }
