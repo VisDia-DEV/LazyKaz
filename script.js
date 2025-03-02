@@ -1,74 +1,80 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let balance = localStorage.getItem("balance") || 0;
-    let lastCheckIn = localStorage.getItem("lastCheckIn") || "";
-    let streak = localStorage.getItem("streak") || 0;
-    let clickValue = localStorage.getItem("clickValue") || 10;
+let balance = 0;
+let bonusCollected = false;
+let upgradeLevel = 1;
+let lastCollectedDay = localStorage.getItem("lastCollectedDay") || 0;
 
-    balance = parseInt(balance);
-    streak = parseInt(streak);
-    clickValue = parseInt(clickValue);
-
+document.getElementById("clickButton").addEventListener("click", () => {
+    let gain = upgradeLevel;
+    balance += gain;
     document.getElementById("balance").textContent = balance;
-    document.getElementById("clickValue").textContent = clickValue;
-
-    // Кликер
-    const clickerButton = document.getElementById("clicker");
-    clickerButton.addEventListener("click", function () {
-        balance += clickValue;
-        localStorage.setItem("balance", balance);
-        document.getElementById("balance").textContent = balance;
-
-        // Анимация клика
-        clickerButton.classList.add("click-effect");
-        setTimeout(() => clickerButton.classList.remove("click-effect"), 200);
-    });
-
-    // Логика Check-in
-    function getBonus(streak) {
-        return 1000 + (streak * 500);
-    }
-
-    let today = new Date().toDateString();
-    if (lastCheckIn !== today) {
-        document.getElementById("dailyBonus").textContent = getBonus(streak);
-        document.getElementById("claimBonus").disabled = false;
-    } else {
-        document.getElementById("claimBonus").disabled = true;
-    }
-
-    document.getElementById("claimBonus").addEventListener("click", function () {
-        balance += getBonus(streak);
-        localStorage.setItem("balance", balance);
-        document.getElementById("balance").textContent = balance;
-
-        streak = Math.min(streak + 1, 7); // Максимальная серия 7 дней
-        localStorage.setItem("streak", streak);
-        localStorage.setItem("lastCheckIn", today);
-
-        document.getElementById("claimBonus").disabled = true;
-    });
-
-    // Магазин улучшений
-    document.getElementById("upgradeClick").addEventListener("click", function () {
-        if (balance >= 500) {
-            balance -= 500;
-            clickValue += 5; // Увеличиваем силу клика
-            localStorage.setItem("balance", balance);
-            localStorage.setItem("clickValue", clickValue);
-
-            document.getElementById("balance").textContent = balance;
-            document.getElementById("clickValue").textContent = clickValue;
-        } else {
-            alert("Недостаточно монет!");
-        }
-    });
-
-    // Функция переключения страниц
-    window.showPage = function (page) {
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("show"));
-        document.getElementById(page).classList.add("show");
-    };
-
-    // Показываем главную страницу по умолчанию
-    showPage("clicker-page");
+    spawnParticles(gain);
 });
+
+function spawnParticles(amount) {
+    let particle = document.createElement("div");
+    particle.className = "particle";
+    particle.textContent = `+${amount}`;
+    document.querySelector(".particles").appendChild(particle);
+    setTimeout(() => particle.remove(), 1000);
+}
+
+function showTab(tab) {
+    document.getElementById("checkinTab").classList.toggle("hidden", tab !== "checkin");
+    document.getElementById("upgradesTab").classList.toggle("hidden", tab !== "upgrades");
+}
+
+function buyUpgrade() {
+    if (balance >= 50) {
+        balance -= 50;
+        upgradeLevel++;
+        document.getElementById("balance").textContent = balance;
+    } else {
+        alert("Не хватает монет!");
+    }
+}
+
+// Ежедневные бонусы
+let bonuses = [100, 200, 300, 400, 500, 600, 1000];
+let now = new Date().getDate();
+
+if (now !== lastCollectedDay) {
+    bonusCollected = false;
+}
+
+function collectBonus() {
+    if (!bonusCollected) {
+        let day = now % 7;
+        balance += bonuses[day];
+        document.getElementById("balance").textContent = balance;
+        bonusCollected = true;
+        lastCollectedDay = now;
+        localStorage.setItem("lastCollectedDay", now);
+        updateBonusUI();
+    }
+}
+
+function updateBonusUI() {
+    let bonusCards = document.getElementById("bonusCards");
+    bonusCards.innerHTML = "";
+    bonuses.forEach((amount, index) => {
+        let card = document.createElement("div");
+        card.className = "bonus-card";
+        card.textContent = `День ${index + 1}: ${amount} монет`;
+        if (index === now % 7 && !bonusCollected) {
+            let btn = document.createElement("button");
+            btn.textContent = "Забрать";
+            btn.onclick = collectBonus;
+            card.appendChild(btn);
+        }
+        bonusCards.appendChild(card);
+    });
+
+    let nextBonusTime = new Date();
+    nextBonusTime.setHours(24, 0, 0, 0);
+    let diff = nextBonusTime - new Date();
+    let hours = Math.floor(diff / 3600000);
+    let minutes = Math.floor((diff % 3600000) / 60000);
+    document.getElementById("timer").textContent = `Следующий бонус через: ${hours}ч ${minutes}м`;
+}
+
+updateBonusUI();
