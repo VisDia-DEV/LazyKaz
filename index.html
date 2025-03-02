@@ -5,14 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Clicker Game</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div id="nicknamePopup" class="popup">
+        <div class="popup-content">
+            <h2>Введите ваш ник</h2>
+            <input type="text" id="nicknameInput" placeholder="Ваш ник (макс. 16 символов)" maxlength="16">
+            <button onclick="startGame()">Начать игру</button>
+        </div>
+    </div>
+
+    <div class="container hidden">
         <h1>Clicker Game</h1>
         <div class="balance">Баланс: <span id="balance">0</span> монет</div>
+        <div class="nickname">Игрок: <span id="playerNickname"></span></div>
         <button id="clickButton">Кликни!</button>
-        <div id="particleContainer"></div>
     </div>
 
     <div class="progress-container">
@@ -24,6 +31,7 @@
         <button onclick="showTab('clicker')">Главная</button>
         <button onclick="showTab('checkin')">Check-in</button>
         <button onclick="showTab('upgrades')">Улучшения</button>
+        <button onclick="showTab('leaderboard')">Лидерборд</button>
     </div>
 
     <div id="checkinTab" class="hidden">
@@ -37,9 +45,12 @@
         <button id="upgradeButton">Купить улучшение (<span id="upgradeCost">1000</span> монет)</button>
     </div>
 
-    <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('selectstart', event => event.preventDefault());
-    </script>
+    <div id="leaderboardTab" class="hidden">
+        <h2>Лидерборд</h2>
+        <div id="leaderboardContent"></div>
+        <button onclick="downloadLeaderboard()">Скачать данные</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
